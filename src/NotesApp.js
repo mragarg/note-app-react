@@ -38,8 +38,11 @@ export class NotesApp extends React.Component {
                     className={styles.list}
                     notes={this.state.notes}
                     handleSelection={this._selectNote}
-                    />
-                <NotesDetail className={styles.detail}/>
+                />
+                <NotesDetail 
+                    className={styles.detail}
+                    note={this.state.notes.find(note => this.state.selectedNote === note.id)}
+                />
             </div>
         )
     }
