@@ -45,6 +45,7 @@ export class NotesApp extends React.Component {
                 <NotesDetail 
                     className={styles.detail}
                     note={theNote}
+                    handleSave={this._updateNote}
                 />
             </div>
         )
@@ -60,7 +61,44 @@ export class NotesApp extends React.Component {
     _updateNote = (idToUpdate, newText) => {
         // We can't simply reassign the item in the array.
         // So we need to create a new array with all the exisiting notes.
-        // But, we want to use the newText for the note with id === id
+        // But, we want to use the newText for the note with id === idToUpdate
+
+        // VERSION 1
+        const  updatedNotes1 = this.state.notes.map(note => {
+            if(note.id === idToUpdate){
+                // return the modified version
+                return {
+                    ...note,        // Spread out all the existing key-value pairs.
+                    text: newText   // Overwrite *just* the text property.
+                }
+            } else {
+                // return a copy of the note as-is
+                return {
+                    ...note
+                };
+            }
+        });
+        this.setState({
+            notes: updatedNotes1 // Already a copy
+        })
+
+        // ========================================================================================
+        // VERSION 2A
+        // const updatedNotes2 = this.state.notes.filter(note => {
+        //     return note.id !== idToUpdate;
+        // });
+        // const theNoteToUpdate = this.state.notes.find(note => note.id === idToUpdate);
+
+        // ========================================================================================
+        // VERSION 2B
+        // this.setState({
+        //     notes: [
+        //         ...updatedNotes2.concat({
+        //                 ...theNoteToUpdate,
+        //                 text: newText
+        //             })
+        //     ]
+        // });
     }
 }
 

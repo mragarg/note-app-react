@@ -43,7 +43,7 @@ export class NotesDetail extends React.Component {
         // declares the className and note variables
         // and assigns them to the properties from this.props
         // where the name matches.
-        const {className, note} = this.props;
+        const {className, note, } = this.props;
         const {isEditing, draftText} = this.state;
         return (
             <div className={className}>
@@ -51,8 +51,13 @@ export class NotesDetail extends React.Component {
                     isEditing ? <NotesEditor text={draftText} handleChange={this._changeDraftText}/> : draftText
                 }
                 <button onClick={this._toggleIsEditing}>Toggle</button>
+                <button onClick={this._saveDraft}>Save</button>
             </div>
         );
+    }
+
+    _saveDraft = () => {
+        this.props.handleSave(this.state.id, this.state.draftText)
     }
 
     _changeDraftText = (newText) => {
