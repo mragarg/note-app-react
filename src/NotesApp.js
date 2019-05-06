@@ -32,6 +32,9 @@ export class NotesApp extends React.Component {
     
 
     render() {
+
+        const theNote = this.state.notes.find(note => this.state.selectedNote === note.id);
+        
         return (
             <div className={styles.app}>
                 <NotesList 
@@ -41,7 +44,7 @@ export class NotesApp extends React.Component {
                 />
                 <NotesDetail 
                     className={styles.detail}
-                    note={this.state.notes.find(note => this.state.selectedNote === note.id)}
+                    note={theNote}
                 />
             </div>
         )
@@ -52,6 +55,12 @@ export class NotesApp extends React.Component {
         this.setState({
             selectedNote: id
         })
+    }
+
+    _updateNote = (idToUpdate, newText) => {
+        // We can't simply reassign the item in the array.
+        // So we need to create a new array with all the exisiting notes.
+        // But, we want to use the newText for the note with id === id
     }
 }
 
