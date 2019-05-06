@@ -15,10 +15,29 @@ export class NotesDetail extends React.Component {
     
       this.state = {
          isEditing: false,
-         draftText: props.note.text
+         draftText: props.note.text, 
+         id: props.note.id
       }
     }
     
+
+    static getDerivedStateFromProps(props, state) {
+        // There is no `this`
+        // So, we receive props and state as arguments.
+
+
+        // Must return an object that describes 
+        // any  modifications to state.
+        if(props.note.id !== state.id){
+            return {
+                draftText: props.note.text,
+                id: props.note.id
+            };
+        }
+        else {
+            return null;
+        }
+    }
 
     render() {
         // declares the className and note variables
